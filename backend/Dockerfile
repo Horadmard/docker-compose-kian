@@ -1,5 +1,5 @@
 FROM python:3.12-slim
-WORKDIR /app
+WORKDIR /app/backend
 RUN  apt update && apt install -y curl
 COPY requirements.txt .
 RUN pip install -r requirements.txt 
