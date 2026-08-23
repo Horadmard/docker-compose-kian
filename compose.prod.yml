@@ -1,15 +1,15 @@
 services:
   nginx-proxy:
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
+      - 443:443
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./certs:/etc/nginx/certs:ro 
   backend:
     image: kianarhnm/backend:1.0.0
     build:
-      context: ./bckend
+      context: ./backend
       dockerfile: Dockerfile.prod
     environment:
       DEBUG: "false"
@@ -17,7 +17,7 @@ services:
   frontend:
     image: kianarhnm/frontend:1.0.0
     build:
-      context: ./front
+      context: ./frontend
       dockerfile: Dockerfile.prod
     environment:
       NODE_ENV: production

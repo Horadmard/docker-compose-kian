@@ -29,7 +29,7 @@ services:
     restart: unless-stopped
 
   backend:
-    build: ./bckend
+    build: ./backend
     env_file:
       - .env.backend
     depends_on:
@@ -42,7 +42,7 @@ services:
     restart: unless-stopped
 
   frontend:
-    build: ./front
+    build: ./frontend
     depends_on:
       - backend
     env_file:

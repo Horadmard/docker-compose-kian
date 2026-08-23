@@ -13,7 +13,7 @@ jobs:
       - name: Checkout Code
       - uses: action/checkout@v4
       - name: Build Docker Image
-        run: docker build -t kianarhnm/backend ./bckend
+        run: docker build -t kianarhnm/backend ./backend
 
       - name: Login Docker Hub
         run: |
@@ -27,5 +27,5 @@ jobs:
       - name: Deploy
         run: |
           ssh user@ server " 
-          docker pull kianarhnm/bckend
+          docker pull kianarhnm/backend
           docker compose up -d "
