@@ -13,6 +13,6 @@ test:
 	docker compose exec backend pytest
 
 prod:
-	docker build -t kianarhnm/backend:1.0.0 -f bckend/Dockerfile.prod ./bckend
+	docker build -t kianarhnm/backend:1.0.0 -f backend/Dockerfile.prod ./backend
 devb:
-	docker build -t kianarhnm/frontend:1.0.0 -f front/Dockerfile.prod ./front
+	docker build -t kianarhnm/frontend:1.0.0 -f frontend/Dockerfile.prod ./frontend
