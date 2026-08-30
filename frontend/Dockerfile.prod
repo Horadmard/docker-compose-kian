@@ -4,5 +4,8 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
+RUN addgroup -S dockergroup && adduser -S dockeru -G dockergroup
+RUN chown -R dockeru:dockergroup
+USER dockergroup
 EXPOSE 3000
 CMD ["npm", "start"]

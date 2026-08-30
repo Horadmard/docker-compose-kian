@@ -5,12 +5,20 @@ services:
       - ./nginx/dev.conf:/etc/nginx/conf.d/default.conf:ro
       
   backend:
+    image: project1-backend:dev
+    build:
+      context: ./backend 
+      dockerfile: Dockerfile
     volumes:
       - ./backend:/app/backend
     environment:
       DEBUG: "true"
 
   frontend:
+    image: project1-frontend:dev
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     volumes:
       - ./frontend:/app/frontend
       - /app/frontend/node_modules

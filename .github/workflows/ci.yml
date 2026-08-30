@@ -4,6 +4,18 @@ on:
   pull_request:
 
 jobs:
+  deploy:
+    needs:
+      - build-and-push
+    runs-on: self-hosted
+    steps:
+      - name: Deploy to server
+        run: |
+          cd ~/comData/docker-compose
+          export BACKEND_VERSION=${{ github.sha }}
+          export FRONTEND_VERSION=${{ github.sha}}
+          docker compose -f compose.yml -f compose.prod.yml pull
+          docker compose -f compose.yml -f compose.prod.yml up -d
   build-and-push:
     runs-on: ubuntu-latest
 
@@ -31,7 +43,9 @@ jobs:
             context: ./backend
             file: ./backend/Dockerfile.prod
             push: true
-            tags: ghcr.io/kianarhnm/project1-backend:1.0.0
+            tags: |
+              ghcr.io/kianarhnm/project1-backend:${{ github.sha}}
+              ghcr.io/kianarhnm/project1-backend:latest
 
         - name: Build and push Frontend Image
           uses: docker/build-push-action@v6
@@ -39,8 +53,9 @@ jobs:
             context: ./frontend
             file: ./frontend/Dockerfile.prod
             push: true
-            tags: ghcr.io/kianarhnm/project1-frontend:1.0.0
-
+            tags: |
+              ghcr.io/kianarhnm/project1-frontend:${{ github.sha }}
+              ghcr.io/kianarhnm/project1-frontend:latest
   test-backend:
     runs-on: ubuntu-latest
 
@@ -63,7 +78,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: front
+        working-directory: frontend
 
     steps: 
     - uses: actions/checkout@v4

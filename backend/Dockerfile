@@ -4,4 +4,7 @@ RUN  apt update && apt install -y curl
 COPY requirements.txt .
 RUN pip install -r requirements.txt 
 COPY . .
+RUN useradd -create-home dockeruser
+RUN chown -R dockeruser:dockeruser /app/backend
+USER dockeruser
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
